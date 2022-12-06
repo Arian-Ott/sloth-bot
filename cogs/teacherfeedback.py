@@ -671,7 +671,7 @@ class TeacherFeedback(commands.Cog):
         teacher_feedback_embed.set_footer(text="(You have 10 minutes to click on this)")
 
         # View
-        confirm_view: discord.ui.View = ConfirmButton(member, timeout=6000)
+        confirm_view: discord.ui.View = ConfirmButton(member, timeout=none)
         await member.send(embed=teacher_feedback_embed, view=confirm_view)
 
         # Waits for prompt confirmation
