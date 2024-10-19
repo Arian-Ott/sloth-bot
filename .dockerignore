@@ -9,6 +9,12 @@ texts/
 .vscode/
 sloth.sql
 tests.py
-
+LICENSE
+.dockerignore
+.gitignore
+.python-version
+dev-requirements.txt
+pytest.ini
+runtime.txt
 .idea/
 **/__pycache__/

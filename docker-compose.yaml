@@ -1,0 +1,51 @@
+# ====== HOW TO USE ======
+# This docker-compose.yaml file is used to run the bot and the database in a container.
+# You can either run all three services (db, phpmyadmin, bot) or just the bot service.
+# To run all three services, run the following command:
+# docker compose up -d
+# To run just the bot service, run the following command:
+# docker compose up -d bot
+# To stop all services, run the following command:
+# docker compose down
+# To stop just the bot service, run the following command:
+# docker compose stop bot
+# 
+# The general syntax for starting a container is:
+# docker compose up -d [service name]
+# The general syntax for stopping a container is:
+# docker compose stop [service name]
+
+services:
+  db:
+    image: mariadb:lastest
+    env_file:
+      - dev.env
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - db
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    env_file:
+      - dev.env
+    ports:
+      - "8080:80"
+    networks:
+      - db
+    depends_on:
+      - db
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python3 main.py
+    env_file:
+      - dev.env
+    networks:
+      - db
+    depends_on:
+      - db
+    volumes:
+      - .:/app
